@@ -1,0 +1,117 @@
+import turtle
+import random
+import time
+
+screen = turtle.Screen()
+screen.bgcolor("gold")
+screen.title("Turtle Game")
+
+# Define font for the score
+Font = ("Roboto", 20, "normal")
+
+# List to store turtles
+turtle_list = []
+
+# Score initialization
+score = 0
+
+# we are going to identify  this function
+
+counter_x=turtle.Turtle()
+
+# Turtle for displaying the score
+score_turtle = turtle.Turtle()
+score_turtle.hideturtle()
+
+# Function to set up the score turtle
+def set_score_turtle():
+    top_height = screen.window_height() / 2
+    score_turtle.penup()
+    score_turtle.color("red")
+
+    score_turtle.setpos = screen.window_height()/2
+    y = top_height * 0.8
+    score_turtle.setposition(0,y)
+    score_turtle.write("Score: {}".format(score), align="center", font=("Arial", 24, "normal"))
+
+
+# Function to create a new turtle
+def make_turtle(x, y):
+    t = turtle.Turtle()
+    t.penup()
+    t.shape("turtle")
+    t.shapesize(2, 2)
+    t.color("blue")
+    t.goto(x * 15, y * 15)
+    turtle_list.append(t)
+
+# Function to handle click events and update score
+def handle_click(x, y):
+
+    #in this functoin we are going score #
+    global score
+    score += 1
+    score_turtle.clear()
+    score_turtle.write("Score: {}".format(score), move=False, align="center", font=Font)
+
+# Function to hide all turtles
+def turtle_hide():
+    # this functoin help us hide the turle #
+    for t in turtle_list:
+        t.hideturtle()
+
+# Function to show a random turtle
+def show_random_turtle():
+    # Hide all turtles
+    for t in turtle_list:
+        t.hideturtle()
+    # Show a random turtle from the list
+    random.choice(turtle_list).showturtle()
+    # Set a timer to call this function again after 500 milliseconds
+    screen.ontimer(show_random_turtle, 500)
+
+# Example usage:
+screen = turtle.Screen()
+turtle_list = [turtle.Turtle() for _ in range(5)]  # Create a list of 5 turtles
+
+# Start the initial call
+show_random_turtle()
+
+
+# now we want this thing to count timers  #
+def counter():
+    #First we do is idnetify number#
+    number = 10
+    #Second of all we wirte whikle loop to count from 10#
+    while number > 0:  # Change condition to 'number > 0'
+        time.sleep(1)
+        print(number)
+        #Third: of all we write -1 to show <10 #
+        number-=1
+
+# Set up turtles
+def setup_turtles():
+
+    # these function sets coordinates #
+    x_c = [-20, -10, 0, 10, 20]
+    y_c = [30, 10, 0, 20]
+    for x in x_c:
+        for y in y_c:
+            make_turtle(x, y)
+
+# Main function
+
+
+
+
+
+# this helps run the program  #
+turtle.tracer(0)  # Turn off animation
+setup_turtles()
+set_score_turtle()
+turtle_hide()
+show_random_turtle()
+turtle.tracer(1)  # Turn on animation
+screen.onclick(handle_click)
+screen.mainloop()
+counter()
